@@ -1,5 +1,6 @@
 import {MyGame} from "./my-game/MyGame";
-import {IgtSettings} from "incremental-game-template";
+import {IgtSettings, IgtWallet} from "incremental-game-template";
+import {CurrencyType} from "@/my-game/features/wallet/CurrencyType";
 
 export class App {
     static inProduction: boolean = (process.env.NODE_ENV === "production");
@@ -17,7 +18,7 @@ export class App {
         return new MyGame(
             {
                 settings: new IgtSettings(),
-                // Add your own features here.
+                wallet: new IgtWallet([CurrencyType.banana]),
             }
         );
     }
