@@ -7,6 +7,7 @@
 
       <igt-tab name="Main screen" :selected="true">
         <igt-wallet :wallet-feature="game.features.wallet"></igt-wallet>
+        <banana-producer :banana-producer-feature="game.features.bananaProducer"></banana-producer>
       </igt-tab>
 
       <igt-tab name="Settings">
@@ -43,9 +44,11 @@ import IgtSidebarCategory from "@/components/util/sidebar/igt-sidebar-category";
 import IgtSidebarExternalLink from "@/components/util/sidebar/igt-sidebar-external-link";
 import IgtSettings from "@/components/features/settings/igt-settings";
 import IgtWallet from "@/components/features/wallet/igt-wallet";
+import BananaProducer from "@/components/features/banana-producer/banana-producer";
 
 export default {
   components: {
+    BananaProducer,
     IgtWallet,
     IgtSettings,
     IgtSidebarExternalLink,
