@@ -1,15 +1,22 @@
-import {Currency, IgtFeature, IgtWallet, SaveData} from "incremental-game-template";
+import {AddWallet, ContinuousUpgrade, Currency, IgtFeature, SaveData} from "incremental-game-template";
 import {CurrencyType} from "@/my-game/features/wallet/CurrencyType";
 import {MyFeatures} from "@/my-game/MyFeatures";
 
-export class BananaProducer extends IgtFeature {
+export class BananaProducer extends AddWallet(IgtFeature) {
 
-    // Declare the attribute. It is undefined for now but we can promise TypeScript it will be initialized in the initialize()
-    private _wallet: IgtWallet = undefined as unknown as IgtWallet;
+    monkeyUpgrade: ContinuousUpgrade;
 
     constructor() {
         // The saveKey for this feature
         super('banana');
+        this.monkeyUpgrade = new ContinuousUpgrade('monkey', 'banana', 'Monkeys', 100,
+            level => {
+                return level + 1;
+            },
+            level => {
+                return new Currency(20 * Math.pow(level + 1, 1.4), CurrencyType.banana);
+            },
+        )
     }
 
     // Inject the wallet so we can refer to it later
@@ -19,7 +26,7 @@ export class BananaProducer extends IgtFeature {
 
     // This method is called every tick, delta is the time elapsed since last tick
     update(delta: number) {
-        const bananasToGain = 1;
+        const bananasToGain = this.monkeyUpgrade.getBonus();
         const currency = new Currency(bananasToGain * delta, CurrencyType.banana);
         this._wallet.gainCurrency(currency)
     }
