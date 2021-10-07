@@ -1,6 +1,7 @@
-import {AddWallet, ContinuousUpgrade, Currency, IgtFeature, SaveData} from "incremental-game-template";
+import {AddWallet, ContinuousUpgrade, Currency, IgtFeature} from "incremental-game-template";
 import {CurrencyType} from "@/my-game/features/wallet/CurrencyType";
 import {MyFeatures} from "@/my-game/MyFeatures";
+import {BananaProducerSaveData} from "@/my-game/features/banana-producer/BananaProducerSaveData";
 
 export class BananaProducer extends AddWallet(IgtFeature) {
 
@@ -31,12 +32,14 @@ export class BananaProducer extends AddWallet(IgtFeature) {
         this._wallet.gainCurrency(currency)
     }
 
-    load(data: SaveData): void {
-        // Empty
+    load(data: BananaProducerSaveData): void {
+        this.monkeyUpgrade.level = data.monkeyLevel ?? 0;
     }
 
-    save(): SaveData {
-        return {};
+    save(): BananaProducerSaveData {
+        return {
+            monkeyLevel: this.monkeyUpgrade.level,
+        };
     }
 
 }
